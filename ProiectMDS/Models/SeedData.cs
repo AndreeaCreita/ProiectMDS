@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProiectMDS.Models
 {
+    //
     public class SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)

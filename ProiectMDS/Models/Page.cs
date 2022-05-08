@@ -8,7 +8,7 @@ namespace ProiectMDS.Models
 {
     public class Page
     {
-        public int Id { get; set; } //va fi automat recunoscut ca primary key
+        public int Id { get; set; } //va fi automat recunoscut ca primary key <3
         [Required]
         public string Title { get; set; }
         [Required]
