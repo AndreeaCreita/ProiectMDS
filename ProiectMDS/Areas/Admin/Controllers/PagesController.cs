@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ProiectMDS.Infrastructure;
-using ProiectMDS.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProiectMDS.Infrastructure;
+using ProiectMDS.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProiectMDS.Areas.Admin.Controllers
 {
@@ -51,13 +51,13 @@ namespace ProiectMDS.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Page page) //IactionResults catch all for returns
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 page.Slug = page.Title.ToLower().Replace(" ", "-");
                 page.Sorting = 100;
 
                 var slug = await context.Pages.FirstOrDefaultAsync(x => x.Slug == page.Slug);
-                if(slug != null)
+                if (slug != null)
                 {
                     ModelState.AddModelError("", "The page already exists.");
                     return View(page);
@@ -108,7 +108,7 @@ namespace ProiectMDS.Areas.Admin.Controllers
                 TempData["Success"] = "The page has been edited!";
 
 
-                return RedirectToAction("Edit", new {id = page.Id});
+                return RedirectToAction("Edit", new { id = page.Id });
             }
 
             return View(page);
@@ -132,5 +132,22 @@ namespace ProiectMDS.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        // POST /admin/pages/reorder
+        [HttpPost]
+        public async Task<IActionResult> Reorder(int[] id)
+        {
+            int count = 1;
+
+            foreach (var pageId in id)
+            {
+                Page page = await context.Pages.FindAsync(pageId);
+                page.Sorting = count;
+                context.Update(page);
+                await context.SaveChangesAsync();
+                count++;
+            }
+
+            return Ok();
+        }
     }
 }
