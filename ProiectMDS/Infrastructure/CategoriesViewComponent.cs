@@ -16,7 +16,7 @@ namespace ProiectMDS.Infrastructure
         {
             this.context = context;
         }
-
+        //
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var categories = await GetCategoriesAsync();

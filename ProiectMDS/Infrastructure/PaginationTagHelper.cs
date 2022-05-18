@@ -13,7 +13,7 @@ namespace ProiectMDS.Infrastructure
             output.Attributes.Add("aria-label", "Page navigation");
             output.Content.SetHtmlContent(AddPageContent());
         }
-
+        //
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
         public int PageCount { get; set; }

@@ -23,7 +23,7 @@ namespace ProiectMDS.Infrastructure
             var pages = await GetPagesAsync();
             return View(pages);   //view component se gaseste in Shared, in MainMenu cu numele de Default + dupa o invoc in Layout
         }
-
+        //
         private Task<List<Page>> GetPagesAsync()
         {
             return context.Pages.OrderBy(x => x.Sorting).ToListAsync();

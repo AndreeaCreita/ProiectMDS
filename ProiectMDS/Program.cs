@@ -25,7 +25,7 @@ namespace ProiectMDS
                 {
                     SeedData.Initialize(services);
                 }
-                catch (Exception)
+                catch (Exception) 
                 {
                     throw;
                 }

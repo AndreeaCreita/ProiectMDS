@@ -13,6 +13,7 @@ namespace ProiectMDS.Controllers
     {
         private readonly ProiectMDSContext context;
         //constructor
+        //
         public PagesController(ProiectMDSContext context)
         {
             this.context = context; //ca sa le pot folosi context sau metode sau actions

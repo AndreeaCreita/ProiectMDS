@@ -15,4 +15,4 @@ namespace ProiectMDS.Models
         public string Slug { get; set; }
         public int Sorting { get; set; }
     }
-}
+}//
