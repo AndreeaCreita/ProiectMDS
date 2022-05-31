@@ -49,6 +49,7 @@ namespace ProiectMDS.Controllers
 
             HttpContext.Session.SetJson("Cart", cart);
             return RedirectToAction("Index");
+            //return Redirect("~/Cart");
         }
 
         // GET /cart/decrease/5
