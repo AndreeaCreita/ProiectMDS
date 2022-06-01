@@ -37,7 +37,14 @@ namespace ProiectMDS
             //register services and dependencies in the configureService method
             services.AddDbContext<ProiectMDSContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProiectMDSContext")));
 
-            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ProiectMDSContext>().AddDefaultTokenProviders();
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 4;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+            }).AddEntityFrameworkStores<ProiectMDSContext>().AddDefaultTokenProviders();
         }
 
        
@@ -63,9 +70,9 @@ namespace ProiectMDS
 
             app.UseSession();
 
-            app.UseAuthorization();
-
             app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

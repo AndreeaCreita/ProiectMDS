@@ -102,7 +102,7 @@ namespace ProiectMDS.Controllers
         }
 
         // GET /cart/clear
-        public IActionResult Clear(int id)
+        public IActionResult Clear()
         {
             HttpContext.Session.Remove("Cart");
             //return RedirectToAction("Page", "Pages");
