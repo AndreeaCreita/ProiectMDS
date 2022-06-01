@@ -79,6 +79,8 @@ namespace ProiectMDS
 
             app.UseAuthentication();
 
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 //goes from most specific to least specific
