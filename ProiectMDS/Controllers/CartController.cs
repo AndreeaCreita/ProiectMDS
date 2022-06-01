@@ -48,8 +48,12 @@ namespace ProiectMDS.Controllers
             }
 
             HttpContext.Session.SetJson("Cart", cart);
-            return RedirectToAction("Index");
-            //return Redirect("~/Cart");
+
+            if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+                return RedirectToAction("Index");
+
+            return ViewComponent("SmallCart");
+      
         }
 
         // GET /cart/decrease/5
@@ -101,7 +105,12 @@ namespace ProiectMDS.Controllers
         public IActionResult Clear(int id)
         {
             HttpContext.Session.Remove("Cart");
-            return RedirectToAction("Index");
+            //return RedirectToAction("Page", "Pages");
+            //return Redirect("/");
+            if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+                return Redirect(Request.Headers["Referer"].ToString());
+
+            return Ok();
         }
     }
 }

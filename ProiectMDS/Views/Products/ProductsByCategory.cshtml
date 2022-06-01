@@ -1,21 +1,21 @@
 ﻿@model IEnumerable<Product>
 
-    @{
+@{
     ViewData["Title"] = "Products";
-    }
+}
 
-    <h1 class="display-4 pb-5">@ViewBag.CategoryName</h1>
+<h1 class="display-4 pb-5">@ViewBag.CategoryName</h1>
 
-    <div class="row">
-        @foreach (var item in Model)
-        {
+<div class="row">
+    @foreach (var item in Model)
+    {
         <div class="col-4">
-            @*<div class="ajaxbg d-none">
-                <img src="~/images/ajax-loader.gif" />
+            <div class="ajaxbg d-none">
+                <img src="~/images/loading.gif" />
                 <p class="lead alert alert-success text-center d-none">
                     The product has been added!
                 </p>
-            </div> *@
+            </div>
             <img src="~/media/products/@item.Image" class="img-fluid" alt="" />
             <h4>@item.Name</h4>
             <div>
@@ -28,25 +28,43 @@
                 <a asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id" data-id="@item.Id" class="btn btn-primary addToCart">Add to cart</a>
             </p>
         </div>
-        }
+    }
 
-        @if (ViewBag.TotalPages > 1)
-        {
+    @if (ViewBag.TotalPages > 1)
+    {
         <div class="d-flex w-100 justify-content-center">
             <pagination page-count="@ViewBag.TotalPages" page-target="/products/@ViewBag.CategorySlug" page-number="@ViewBag.PageNumber" page-range="@ViewBag.PageRange"></pagination>
         </div>
-        }
+    }
 
-    </div>
-
+</div>
+@*
     @section Scripts {
+        <script>
+            $(function () {
 
+                $("a.addToCart").click(function (e) {
+                    e.preventDefault();
+
+                    $.get('/cart/add/' + id, {}, function (data) {
+                        $("div.smallcart").html(data);
+                    };
+                };
+            };
+        </script>
+    }*@
+
+
+
+@section Scripts {
     <script>
-        @* $(function () {
+        $(function () {
 
             $("a.addToCart").click(function (e) {
                 e.preventDefault();
 
+                let ajaxDiv = $(this).parent().parent().find("div.ajaxbg");
+                ajaxDiv.removeClass("d-none");
                 let id = $(this).data("id");
 
                 $.get('/cart/add/' + id, {}, function (data) {
@@ -61,9 +79,7 @@
                         });
                     });
                 });
-            }); 
-
-        });*@
+            });
+        });
     </script>
-
-    }
+}

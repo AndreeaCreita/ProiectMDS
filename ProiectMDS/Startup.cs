@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProiectMDS.Infrastructure;
+using ProiectMDS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +36,8 @@ namespace ProiectMDS
             services.AddControllersWithViews();
             //register services and dependencies in the configureService method
             services.AddDbContext<ProiectMDSContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProiectMDSContext")));
+
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ProiectMDSContext>().AddDefaultTokenProviders();
         }
 
        
@@ -60,6 +64,8 @@ namespace ProiectMDS
             app.UseSession();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
